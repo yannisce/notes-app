@@ -1,0 +1,491 @@
+/////////
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+////////////////////////////
+// CBRS Cross browser reset
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+/////////////
+// Variables
+
+// colors
+$main-color: #5352ed;
+$main-color-light: #1e90ff;
+$color-red: #ff4757;
+$color-white: #ffffff;
+$color-white-2: #f1f2f6;
+$color-offwhite: #dfe4ea;
+
+// breakpoints
+$point-largest: 75em; // 1200px
+$point-medium: 37.500em; // 600px
+$point-small: 25.875em; // 414px
+$point-smallest: 22.500em; // 360px
+
+html {
+  font-size: 62.5%; // 1rem = 10px;
+
+  @media only screen and (max-width: $point-smallest) {
+    font-size: 50%;
+  }
+
+  @media only screen and (max-width: $point-small) {
+    font-size: 45%;
+  }
+
+}
+
+body {
+  box-sizing: border-box;
+  background-color: $color-offwhite;
+  // padding: 10rem;
+  font-family: 'Roboto Mono', monospace;
+}
+
+
+/////////////////
+// App container
+.app {
+  max-width: 60rem;
+  height: 100%;
+  margin: 10rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: $color-white;
+  box-shadow: 0 1rem 2rem rgba(0,0,0, .25);
+  position: relative;
+
+  /////////////////////
+  // Main app controls
+  &__controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 5.5rem;
+    width: 100%;
+    background-color: $color-white-2;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+
+
+
+    // Add a note button
+    &-create_note {
+      display: flex;
+      justify-content: flex-start;
+
+      width: 57rem;
+    }
+
+    // Delete all notes button
+    &-clear_notes {
+      display: flex;
+      justify-content: center;
+
+      width: 5rem;
+    }
+
+    &__icon {
+      height: 3rem;
+      width: 3rem;
+      margin: 1rem;
+      transition: all .2s;
+    }
+
+    &__icon:hover {
+      padding: 1rem;
+      background-color: $main-color-light;
+      border-radius: 50%;
+      padding: .5rem;
+      cursor: pointer;
+    }
+
+    &__icon-bin {
+      height: 3rem;
+      width: 3rem;
+      margin: 1rem;
+      transition: all .2s;
+    }
+
+    &__icon-bin:hover {
+      background-color: $color-red;
+      border-radius: 50%;
+      padding: .5rem;
+      cursor: pointer;
+    }
+  }
+
+  // Content divider
+  &__divider {
+    height: 2rem;
+    margin-bottom: 1rem;
+    max-width: 100%;
+    background-color: $color-offwhite;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+  }
+
+  // Notes container
+  &__notes {
+    max-width: 100%;
+    height: 100%;
+    min-height: 5rem;
+    background-color: $color-offwhite;
+    padding: .5rem;
+    margin: .5rem;
+    border-radius: .5rem;
+  }
+}
+
+///////////////////////
+// Note creation popup
+.note__create {
+  height: 10rem;
+  width: 30rem;
+  position: relative;
+  display: none;
+  visibility: hidden;
+
+  // abs centering
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: $color-white;
+  border-radius: .5rem;
+  box-shadow: 0 1rem 2rem rgba(0,0,0, .10);
+
+  // Create note submit button
+  &__button {
+    display: block;
+    font-size: 2rem;
+    padding: 0;
+    height: 3rem;
+    width: 15rem;
+    margin: 2rem auto;
+    border: none;
+    border-radius: .5rem;
+    background-color: $color-white;
+    box-shadow: 0 1rem 2rem rgba(0,0,0, .08);
+    outline: none;
+    border: 1px solid rgba(0,0,0, .20);
+    transition: all .2s;
+    transition-delay: .01s;
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(.2rem);
+      box-shadow: none;
+    }
+  }
+
+  // Create note text input field
+  &__input {
+    display: block;
+    border: none;
+    outline: none;
+    padding: .5rem;
+    width: 25rem;
+    margin: 1rem auto;
+    border-radius: .5rem;
+    font-size: 1.8rem;
+    background-color: rgba($color-offwhite, .45);
+    color: $main-color;
+  }
+
+  // Create note popup close button (exit button)
+  &-close {
+    position: absolute;
+    top: -.2rem;
+    right: .2rem;
+    margin: .2rem;
+    font-size: 1.6rem;
+    transition: all .1s;
+    
+    &:hover {
+      cursor: pointer;
+      color: $color-red;
+      transform: scale(1.3);
+    }
+  }
+}
+
+///////////////////////
+// Delete all notes popup
+.notes__delete {
+  height: 10rem;
+  width: 30rem;
+  padding: 1rem;
+  position: relative;
+  display: none;
+  visibility: hidden;
+
+  // abs centering
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: $color-white;
+  border-radius: .5rem;
+  box-shadow: 0 1rem 2rem rgba(0,0,0, .10);
+
+  &__paragraph {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  &__button {
+    display: block;
+    border: none;
+    outline: none;
+    padding: .5rem;
+
+    background-color: $color-white;
+    box-shadow: 0 1rem 2rem rgba(0,0,0, .02);
+    border: 1px solid rgba(0,0,0, .20);
+    border-radius: .5rem;
+    margin: 1rem auto;
+    transition: all .1s;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $main-color;
+      color: $color-white;
+    }
+  }
+
+  &-close {
+    position: absolute;
+    top: -.2rem;
+    right: .2rem;
+    margin: .1rem;
+    font-size: 1.4rem;
+    transition: all .1s;
+    
+    &:hover {
+      cursor: pointer;
+      color: $color-red;
+      transform: scale(1.3);
+    }
+  }
+}
+
+/////////////////
+// Notes styling
+.note {
+
+  &__content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+
+  height: 5rem;
+  width: 100%;
+  background-color: $color-white;
+  border-radius: .5rem;
+
+  @media only screen and (max-width: $point-medium) {
+    height: 6.5rem;
+  }
+  
+    &:not(:last-child) {
+      margin-bottom: .5rem;
+    }
+
+    &-date {
+      position: absolute;
+      top: .5rem;
+      left: .5rem;
+      font-size: 1rem;
+      color: $main-color-light;
+    }
+
+    &-note {
+      display: flex;
+      justify-content: center;
+      
+      margin: .5rem;
+      padding: .5rem;
+      width: 57rem;
+      font-size: 1.6rem;
+      border-radius: .4rem;
+
+      @media only screen and (max-width: $point-medium) {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+    }
+
+    ////////////////
+    // Note buttons
+    &-edit {
+      width: 2.5rem;
+      margin-left: .2rem;
+      margin-right: .5rem;
+      fill: currentColor;
+      transition: all .2s;
+      // added delay to prevent animation glitching
+      transition-delay: 25ms;
+
+      &:hover {
+        fill: $main-color;
+        cursor: pointer;
+        transform: rotate(25deg);
+      }
+    }
+
+    &-delete {
+      width: 2.5rem;
+      fill: currentColor;
+      transition: all .2s;
+      // added delay to prevent animation glitching
+      transition-delay: 2ms;
+
+      &:hover {
+        fill: $color-red;
+        cursor: pointer;
+        transform: rotateX(30deg);
+      }
+    }
+
+    /////////////////////
+    // Note button icons
+    &-icon {
+      height: 1.9rem;
+      width: 1.9rem;
+    }
+
+    &-icon-bin {
+      height: 1.9rem;
+      width: 1.9rem;
+    }
+  }
+}
+
+.editNote {
+  height: 10rem;
+  width: 30rem;
+  position: absolute;
+  z-index: 25;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: $color-white;
+  border-radius: .5rem;
+  box-shadow: 0 1rem 2rem rgba(0,0,0, .10);
+  
+  &__input {
+    display: block;
+    border: none;
+    outline: none;
+    padding: .5rem;
+    width: 25rem;
+    margin: 1rem auto;
+    border-radius: .5rem;
+    font-size: 1.8rem;
+    background-color: rgba($color-offwhite, .45);
+    color: $main-color;
+  }
+
+  &__button {
+    display: block;
+    font-size: 2rem;
+    padding: 0;
+    height: 3rem;
+    width: 15rem;
+    margin: 2rem auto;
+    border: none;
+    border-radius: .5rem;
+    background-color: $color-white;
+    box-shadow: 0 1rem 2rem rgba(0,0,0, .08);
+    outline: none;
+    border: 1px solid rgba(0,0,0, .20);
+    transition: all .2s;
+    transition-delay: .01s;
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(.2rem);
+      box-shadow: none;
+    }
+  }
+
+  &-close {
+    position: absolute;
+    top: -.2rem;
+    right: .2rem;
+    margin: .2rem;
+    font-size: 1.6rem;
+    transition: all .1s;
+    
+    &:hover {
+      cursor: pointer;
+      color: $color-red;
+      transform: scale(1.3);
+    }
+  }
+}
+
+//////////////////
+// Shortcut Popup
+.shortcut {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 10rem;
+  width: 35rem;
+  margin: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: $color-white;
+  // box-shadow: 0 1rem 4rem rgba(0,0,0, .08);
+  outline: none;
+  border: 1px solid rgba(0,0,0, .20);
+  border-radius: 1rem;
+
+  @media only screen and (max-width: $point-largest) {
+    display: none;
+    visibility: hidden;
+  }
+
+  & > p {
+    margin: 1rem;
+  }
+
+  & > p > span {
+    border: 1px solid rgba(0,0,0, .20);
+    padding: .5rem;
+    border-radius: 1rem;
+    color: $main-color;
+  }
+
+  &__button {
+    width: 5rem;
+    border: 1px solid rgba(0,0,0, .20);
+    border-radius: 1rem;
+    padding: .1rem;
+    outline: none;
+    background-color: $color-white;
+    font-size: 1.5rem;
+    transition: all .1s;
+
+    &:hover {
+      background-color: $main-color;
+      cursor: pointer;
+      color: $color-white;
+    }
+  }
+
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Notes App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+  <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+</head>
+  <body>
+
+    <main class="app">
+      <div class="app__controls">
+        <div class="app__controls-create_note tooltip">
+          <svg class="app__controls__icon">
+            <use xlink:href="assets/img/sprite.svg#icon-plus"></use>
+          </svg>
+        </div>
+
+        <div class="app__controls-clear_notes">
+          <svg class="app__controls__icon-bin">
+            <use xlink:href="assets/img/sprite.svg#icon-bin"></use>
+          </svg>
+        </div>
+      </div>
+
+      <div class="app__divider"></div>
+
+      <div class="app__notes">
+
+        <!-- EXAMPLE NOTE (no functionality) -->
+          <div class="note__content">
+            <div class="note__content-date">2019/04/07</div>
+              <div class="note__content-note">
+                <p>Pickup Abbey for dinner at 7:00 PM (;</p>
+            </div>
+            <div data-edit="null" class="note__content-edit">
+              <svg class="note__content-icon">
+                <use xlink:href="assets/img/sprite.svg#icon-pencil"></use>
+              </svg>
+            </div>
+            <div data-id="null" class="note__content-delete">
+              <svg class="note__content-icon-bin">
+                <use xlink:href="assets/img/sprite.svg#icon-bin1"></use>
+              </svg>
+            </div>
+          </div>
+
+      </div>
+
+      <div class="note__create">
+        <form id="form" action="#">
+          <input class="note__create__input" maxlength="48" type="text" required>
+          <button class="note__create__button">Create Note</button>
+        </form>
+        <span class="note__create-close">&#10006;</span>
+      </div>
+
+      <div class="notes__delete">
+          <p class="notes__delete__paragraph">Are you sure you want to delete all your notes?</p>
+          <button class="notes__delete__button">Confirm &#10004;</button>
+        <span class="notes__delete-close">&#10006;</span>
+      </div>
+
+    </main>
+
+    <div class="shortcut">
+      <p>Press <span>Ctrl</span> + <span>Shift</span> + <span>('numpad') +</span></p>
+      <p>To add notes faster!</p>
+      <button class="shortcut__button">Ok</button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
