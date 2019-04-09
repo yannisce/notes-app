@@ -42,9 +42,9 @@ function createNote() {
 }
 
 function populateNoteList(items) {
-  if (items.length == 0) return;
-  let notes = items;
-  notesContainer.innerHTML = notes.map((note) => {
+  if (localStorage.getItem('notes') == null || items.length == 0) return;
+  let notesList = items;
+  notesContainer.innerHTML = notesList.map((note) => {
     return `
     <div class="note__content">
     <div class="note__content-date">${note.date}</div>
